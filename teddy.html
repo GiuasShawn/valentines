@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Happy Teddy Day 🧸</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: "Comic Sans MS", cursive;
+    background: linear-gradient(160deg, #ffd6e0, #ffe9cc);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: #5a3e36;
+}
+
+/* floating teddies */
+.teddy {
+    position: absolute;
+    font-size: 30px;
+    animation: float 6s infinite ease-in-out;
+    opacity: 0.6;
+}
+
+@keyframes float {
+    0% {transform: translateY(0);}
+    50% {transform: translateY(-20px);}
+    100% {transform: translateY(0);}
+}
+
+/* letter card */
+.letter {
+    background: #fffaf3;
+    width: 380px;
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    text-align: center;
+}
+
+h1 {
+    margin-top: 0;
+}
+
+p {
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+button {
+    margin-top: 20px;
+    padding: 12px 25px;
+    border-radius: 20px;
+    border: none;
+    background: #ff8fab;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+#hug {
+    margin-top: 15px;
+    display: none;
+    font-size: 20px;
+    animation: pop 0.5s ease;
+}
+
+@keyframes pop {
+    from {transform: scale(0);}
+    to {transform: scale(1);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- floating teddies -->
+<div class="teddy" style="top:10%; left:10%;">🧸</div>
+<div class="teddy" style="top:80%; left:20%; animation-delay:1s;">🧸</div>
+<div class="teddy" style="top:30%; right:10%; animation-delay:2s;">🧸</div>
+<div class="teddy" style="bottom:15%; right:25%; animation-delay:3s;">🧸</div>
+
+<!-- love letter -->
+<div class="letter">
+
+<h1>Happy Teddy Day 🧸❤️</h1>
+
+<p>
+If I could gift you a teddy…  
+it would just be you again.  
+<br><br>
+Because you’re already my soft place,  
+my comfort hug,  
+my safe space after every bad day.  
+<br><br>
+Talking to you feels like wrapping myself in the warmest blanket.
+</p>
+
+<button onclick="hug()">Send Hug 🤍</button>
+
+<div id="hug">
+🫂 Tightest hug ever 🫂
+</div>
+
+</div>
+
+<script>
+function hug() {
+    document.getElementById("hug").style.display = "block";
+}
+</script>
+
+</body>
+</html>

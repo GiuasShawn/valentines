@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gifts For You 🎁</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body, html {
+    height: 100%;
+}
+
+body {
+    background: radial-gradient(circle at top, #1a0008, #000000);
+    color: white;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    height: 100vh;
+}
+
+section {
+    flex: 0 0 50%;
+    height: 50vh;
+    box-sizing: border-box;
+    padding: 0;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s ease;
+    overflow: hidden;
+}
+
+section.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Subtle quadrant backgrounds */
+section:nth-child(1) { background: linear-gradient(135deg, rgba(255,20,95,0.06), transparent); }
+section:nth-child(2) { background: linear-gradient(225deg, rgba(255,77,109,0.06), transparent); }
+section:nth-child(3) { background: linear-gradient(315deg, rgba(255,105,180,0.04), transparent); }
+section:nth-child(4) { background: linear-gradient(45deg, rgba(255,0,150,0.05), transparent); }
+
+/* subtle dividing lines between quadrants */
+section:nth-child(1), section:nth-child(2) { border-bottom: 1px solid rgba(255,255,255,0.03); }
+section:nth-child(1), section:nth-child(3) { border-right: 1px solid rgba(255,255,255,0.03); }
+
+/* Responsive typography to prevent overflow between quadrants */
+h1 {
+    font-size: clamp(1.4rem, 3.8vw, 3rem);
+    margin-bottom: 12px;
+}
+
+p {
+    font-size: clamp(0.95rem, 1.5vw, 1.2rem);
+    max-width: 600px;
+    line-height: 1.6;
+    opacity: 0.8;
+    margin-top: 12px;
+}
+
+.gift {
+    font-size: clamp(3rem, 8vw, 6rem);
+    margin: 16px 0;
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Card wrapper to center content inside each quadrant */
+.card {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-30px); }
+}
+
+.gift.bouquet {
+    animation-delay: 0s;
+}
+
+.gift.chocolates {
+    animation-delay: 0.5s;
+}
+
+.gift.teddy {
+    animation-delay: 1s;
+}
+
+.gift.heart {
+    animation-delay: 0s;
+    animation: heartFloat 2s ease-in-out infinite;
+}
+
+@keyframes heartFloat {
+    0%, 100% { transform: scale(1) translateY(0px); }
+    50% { transform: scale(1.2) translateY(-40px); }
+}
+
+/* Floating Hearts */
+.floating-heart {
+    position: fixed;
+    font-size: 14px;
+    color: rgba(255, 105, 180, 0.6);
+    animation: floatUp linear infinite;
+    pointer-events: none;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(100vh) scale(1);
+        opacity: 0;
+    }
+    10% { opacity: 1; }
+    100% {
+        transform: translateY(-10vh) scale(1.5);
+        opacity: 0;
+    }
+}
+
+/* Cursor Trail Heart */
+.cursor-heart {
+    position: fixed;
+    font-size: 12px;
+    pointer-events: none;
+    animation: fadeOut 1s forwards;
+}
+
+@keyframes fadeOut {
+    to {
+        transform: translateY(-15px) scale(0.8);
+        opacity: 0;
+    }
+}
+
+a {
+    margin-top: 30px;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px;
+    background: white;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+a:hover {
+    background: #ff4d6d;
+    color: white;
+}
+
+/* Fixed back button placed outside quadrants */
+.back-btn {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 18px;
+    padding: 10px 20px;
+    border-radius: 24px;
+    background: white;
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    z-index: 60;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+}
+
+/* Bouquet rain drops */
+.rain-bouquet {
+    position: fixed;
+    top: -8vh;
+    pointer-events: none;
+    font-size: 28px;
+    will-change: transform, opacity;
+    animation-name: fallBouquet;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fallBouquet {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(120vh) rotate(360deg); opacity: 0; }
+}
+
+/* reuse same visual style for other rains */
+.rain-chocolate { position: fixed; top: -8vh; pointer-events: none; will-change: transform, opacity; animation-name: fallBouquet; animation-timing-function: linear; animation-fill-mode: forwards; }
+.rain-teddy { position: fixed; top: -8vh; pointer-events: none; will-change: transform, opacity; animation-name: fallBouquet; animation-timing-function: linear; animation-fill-mode: forwards; }
+.rain-heart { position: fixed; top: -8vh; pointer-events: none; will-change: transform, opacity; animation-name: fallBouquet; animation-timing-function: linear; animation-fill-mode: forwards; }
+
+</style>
+</head>
+
+<body>
+
+<section class="active">
+    <div class="card">
+        <h1>A Bouquet 💐</h1>
+        <div class="gift bouquet">💐</div>
+        <p>For the most beautiful person I know</p>
+    </div>
+</section>
+
+<section>
+    <div class="card">
+        <h1>Sweet Chocolates 🍫</h1>
+        <div class="gift chocolates">🍫</div>
+        <p>Sweet like your love</p>
+    </div>
+</section>
+
+<section>
+    <div class="card">
+        <h1>A Cuddly Teddy 🧸</h1>
+        <div class="gift teddy">🧸</div>
+        <p>To hold you when I can't</p>
+    </div>
+</section>
+
+<section>
+    <div class="card">
+        <h1>My Heart 💕</h1>
+        <div class="gift heart">💕</div>
+        <p>It's always been yours</p>
+    </div>
+</section>
+
+<!-- fixed back button outside quadrants -->
+<a class="back-btn" href="love.html">Go Back</a>
+
+<script>
+// Floating Background Hearts
+function createFloatingHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("floating-heart");
+    heart.innerHTML = "❤";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (5 + Math.random() * 5) + "s";
+    heart.style.fontSize = (10 + Math.random() * 20) + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 10000);
+}
+
+setInterval(createFloatingHeart, 500);
+
+// Cursor Trail Effect
+document.addEventListener("mousemove", function(e) {
+    const trail = document.createElement("div");
+    trail.classList.add("cursor-heart");
+    trail.innerHTML = "❤";
+    trail.style.left = e.clientX + "px";
+    trail.style.top = e.clientY + "px";
+    trail.style.color = "rgba(255, 105, 180, 0.8)";
+    document.body.appendChild(trail);
+
+    setTimeout(() => {
+        trail.remove();
+    }, 1000);
+});
+
+// Scroll Animation for Sections
+const sections = document.querySelectorAll("section");
+
+// Reveal all sections immediately (no scrolling layout)
+document.addEventListener('DOMContentLoaded', () => {
+    sections.forEach(section => section.classList.add('active'));
+});
+
+// Generic rain spawning for any section
+function spawnRainEmoji(emoji, x, size, duration, className) {
+    const el = document.createElement('div');
+    el.className = className || 'rain-bouquet';
+    el.textContent = emoji;
+    el.style.left = x + 'px';
+    el.style.fontSize = size + 'px';
+    el.style.animationDuration = duration + 'ms';
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), duration + 300);
+}
+
+function createRainForSection(section, emoji, className, count = 18) {
+    const rect = section.getBoundingClientRect();
+    for (let i = 0; i < count; i++) {
+        const delay = i * 80 + Math.random() * 300;
+        const x = Math.floor(rect.left + Math.random() * rect.width);
+        const size = Math.floor(16 + Math.random() * 40);
+        const duration = 1200 + Math.random() * 1800;
+        setTimeout(() => spawnRainEmoji(emoji, x, size, duration, className), delay);
+    }
+}
+
+const topLeft = sections[0];
+const topRight = sections[1];
+const bottomLeft = sections[2];
+const bottomRight = sections[3];
+
+topLeft.addEventListener('click', () => createRainForSection(topLeft, '💐', 'rain-bouquet', 22));
+topRight.addEventListener('click', () => createRainForSection(topRight, '🍫', 'rain-chocolate', 18));
+bottomLeft.addEventListener('click', () => createRainForSection(bottomLeft, '🧸', 'rain-teddy', 18));
+bottomRight.addEventListener('click', () => createRainForSection(bottomRight, '💕', 'rain-heart', 18));
+</script>
+
+</body>
+</html>

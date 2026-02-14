@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: radial-gradient(circle at top, #1a0008, #000000);
+    color: white;
+    overflow-x: hidden;
+    position: relative;
+}
+
+section {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1.5s ease;
+}
+
+section.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 1.3rem;
+    max-width: 600px;
+    line-height: 1.6;
+    opacity: 0.8;
+}
+
+.heart {
+    font-size: 2rem;
+    animation: heartbeat 1.5s infinite;
+    margin-top: 20px;
+}
+
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.2); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+button {
+    margin-top: 30px;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px;
+    background: white;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #ff4d6d;
+    color: white;
+}
+
+/* Floating Hearts */
+.floating-heart {
+    position: fixed;
+    font-size: 14px;
+    color: rgba(255, 105, 180, 0.6);
+    animation: floatUp linear infinite;
+    pointer-events: none;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(100vh) scale(1);
+        opacity: 0;
+    }
+    10% { opacity: 1; }
+    100% {
+        transform: translateY(-10vh) scale(1.5);
+        opacity: 0;
+    }
+}
+
+/* Cursor Trail Heart */
+.cursor-heart {
+    position: fixed;
+    font-size: 12px;
+    pointer-events: none;
+    animation: fadeOut 1s forwards;
+}
+
+@keyframes fadeOut {
+    to {
+        transform: translateY(-15px) scale(0.8);
+        opacity: 0;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<section class="active">
+    <h1>Hey You ❤️</h1>
+    <p>I don’t know how to explain it…  
+    but you’re my favorite notification,  
+    my favorite person,  
+    my favorite everything.</p>
+    <div class="heart">❤️</div>
+</section>
+
+<section>
+    <h1>Even From Miles Away</h1>
+    <p>Distance doesn’t change how I feel.  
+    It just makes me miss you more  
+    and love you deeper.</p>
+</section>
+
+<section>
+    <h1>You’re My Peace</h1>
+    <p>No matter how hard the day gets,  
+    thinking about you makes everything softer.</p>
+</section>
+
+<section>
+    <h1>Forever?</h1>
+    <p>I don’t want temporary.  
+    I don’t want “let’s see.”  
+    I want you. Always.</p>
+    <button onclick="window.location.href='gifts.html'">Click Me</button>
+</section>
+
+<script>
+// Floating Background Hearts
+function createFloatingHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("floating-heart");
+    heart.innerHTML = "❤";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (5 + Math.random() * 5) + "s";
+    heart.style.fontSize = (10 + Math.random() * 20) + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 10000);
+}
+
+setInterval(createFloatingHeart, 500);
+
+// Cursor Trail Effect
+document.addEventListener("mousemove", function(e) {
+    const trail = document.createElement("div");
+    trail.classList.add("cursor-heart");
+    trail.innerHTML = "❤";
+    trail.style.left = e.clientX + "px";
+    trail.style.top = e.clientY + "px";
+    trail.style.color = "rgba(255, 105, 180, 0.8)";
+    document.body.appendChild(trail);
+
+    setTimeout(() => {
+        trail.remove();
+    }, 1000);
+});
+
+// Scroll Animation for Sections
+const sections = document.querySelectorAll("section");
+
+window.addEventListener("scroll", () => {
+    sections.forEach(section => {
+        const top = section.getBoundingClientRect().top;
+        if (top < window.innerHeight - 100) {
+            section.classList.add("active");
+        }
+    });
+});
+</script>
+
+<script>
+function finalMessage() {
+    alert("Forever starts now. I love you. 💕");
+}
+</script>
+
+
+</body>
+</html>

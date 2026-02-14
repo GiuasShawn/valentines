@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Promises - For Anu</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="index.html" class="logo">For Anu</a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="bouquet.html" class="nav-link">Bouquet</a>
+                <a href="letters.html" class="nav-link">Letters</a>
+                <a href="gallery.html" class="nav-link">Gallery</a>
+                <a href="promise.html" class="nav-link" aria-current="page">Promises</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="promise-section">
+            <h1>Our Promises</h1>
+            <p class="subtitle">Little vows, forever kept</p>
+
+            <div class="promise-input-box">
+                <div class="promise-form">
+                    <textarea id="promiseText" placeholder="Write a promise you make to me..." maxlength="200"></textarea>
+                    <button id="addPromiseBtn" class="btn btn-primary">Add Promise</button>
+                </div>
+                <div class="char-count"><span id="charCount">0</span>/200</div>
+                <div class="char-count" id="apiHint"></div>
+            </div>
+
+            <div class="promise-board" id="promiseBoard"></div>
+
+            <div id="emptyState" class="empty-state">
+                <p>Start making promises to each other...</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="config.js"></script>
+    <script>
+        function readApiBase() {
+            const params = new URLSearchParams(window.location.search);
+            const fromQuery = params.get('api');
+
+            if (fromQuery) {
+                localStorage.setItem('PROMISES_API_BASE', fromQuery);
+                return fromQuery;
+            }
+
+            return localStorage.getItem('PROMISES_API_BASE')
+                || window.PROMISES_API_BASE
+                || 'http://localhost:3000';
+        }
+
+        const API_BASE = readApiBase().replace(/\/$/, '');
+        const API_URL = `${API_BASE}/api/promises`;
+
+        const promiseText = document.getElementById('promiseText');
+        const addPromiseBtn = document.getElementById('addPromiseBtn');
+        const promiseBoard = document.getElementById('promiseBoard');
+        const emptyState = document.getElementById('emptyState');
+        const charCount = document.getElementById('charCount');
+        const apiHint = document.getElementById('apiHint');
+
+        apiHint.textContent = `API: ${API_BASE}`;
+
+        promiseText.addEventListener('input', () => {
+            charCount.textContent = promiseText.value.length;
+        });
+
+        async function loadPromises() {
+            try {
+                const response = await fetch(API_URL);
+                if (!response.ok) throw new Error('Failed to fetch');
+                const promises = await response.json();
+                renderPromises(promises);
+            } catch (error) {
+                console.error('Error loading promises:', error);
+                emptyState.innerHTML = '<p>Could not connect to server. Start backend and verify API URL.</p>';
+                emptyState.style.display = 'block';
+            }
+        }
+
+        function renderPromises(promises) {
+            promiseBoard.innerHTML = '';
+
+            if (!promises.length) {
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            emptyState.style.display = 'none';
+
+            promises.forEach((promise) => {
+                const card = document.createElement('div');
+                card.className = 'promise-card';
+                card.style.animation = 'popIn .44s cubic-bezier(.34,1.56,.64,1)';
+
+                const date = new Date(promise.date).toLocaleDateString();
+                card.innerHTML = `
+                    <div class="promise-content">
+                        <p class="promise-text">${escapeHtml(promise.text)}</p>
+                        <small class="promise-date">${date}</small>
+                    </div>
+                    <button class="promise-delete" onclick="deletePromise(${promise.id})" aria-label="Delete promise">x</button>
+                `;
+
+                promiseBoard.appendChild(card);
+            });
+        }
+
+        addPromiseBtn.addEventListener('click', async () => {
+            const text = promiseText.value.trim();
+            if (!text) return;
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text })
+                });
+
+                if (!response.ok) throw new Error('Failed to add promise');
+
+                promiseText.value = '';
+                charCount.textContent = '0';
+                promiseText.focus();
+                await loadPromises();
+            } catch (error) {
+                console.error('Error adding promise:', error);
+                alert('Failed to add promise. Make sure backend is running.');
+            }
+        });
+
+        window.deletePromise = async function(id) {
+            if (!confirm('Delete this promise?')) return;
+
+            try {
+                const response = await fetch(`${API_URL}/${id}`, {
+                    method: 'DELETE'
+                });
+
+                if (!response.ok) throw new Error('Failed to delete');
+                await loadPromises();
+            } catch (error) {
+                console.error('Error deleting promise:', error);
+                alert('Failed to delete promise');
+            }
+        };
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        promiseText.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && e.ctrlKey) {
+                addPromiseBtn.click();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', loadPromises);
+    </script>
+</body>
+</html>

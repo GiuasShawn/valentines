@@ -1,0 +1,146 @@
+:root{
+	--bg1:#0f0710; /* deep plum */
+	--bg2:#3a0f2f; /* rich wine */
+	--accent:#ff6b9a; /* warm pink */
+	--muted:#d6bfc8; /* soft rose */
+	--card:rgba(255,255,255,0.04);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+.body-legacy{}
+body{font-family:Inter,Segoe UI,Helvetica,Arial,sans-serif;background:linear-gradient(135deg,var(--bg1),var(--bg2));color:var(--muted);margin:0;min-height:100vh}
+.site-header{padding:18px 24px}
+.nav{display:flex;justify-content:space-between;align-items:center;max-width:980px;margin:0 auto}
+.logo{font-weight:700;color:var(--accent);text-decoration:none}
+.links a{margin-left:14px;color:#5a3b44;text-decoration:none}
+.hero{max-width:980px;margin:40px auto;padding:36px;text-align:center}
+h1{font-size:2rem;margin:0;color:var(--accent)}
+.lead{color:#6b4a55;margin-top:8px}
+.cta{margin-top:20px}
+.btn{display:inline-block;padding:12px 20px;border-radius:12px;background:linear-gradient(180deg,var(--accent),#ff4f7f);color:#fff;text-decoration:none;margin:8px;font-weight:600;font-size:1rem;box-shadow:0 8px 22px rgba(0,0,0,0.28);transition:transform .36s ease}
+.btn.ghost{background:transparent;color:var(--accent);border:1px solid rgba(255,111,150,0.12)}
+.page{max-width:920px;margin:28px auto;padding:24px}
+.subtitle{color:#6b4a55;margin-bottom:16px}
+.garden{display:flex;gap:14px;justify-content:center;margin:18px 0;flex-wrap:wrap}
+.garden-large .flower{font-size:2.4rem;padding:22px}
+.flower{font-size:1.9rem;padding:16px;border-radius:14px;border:1px solid rgba(255,255,255,0.04);background:var(--card);cursor:pointer;transition:transform .36s ease,box-shadow .36s;color:var(--muted)}
+.flower:active{transform:scale(.96)}
+.flower:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,0.45)}
+.note{margin-top:18px;padding:16px;background:var(--card);border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,0.06);font-weight:600}
+.note.large{font-size:1.12rem;padding:20px}
+.small{color:var(--muted);margin-top:10px;font-size:.9rem}
+.pulse{animation:pulse 1s ease}
+@keyframes pulse{20%{transform:scale(1.03)}100%{transform:scale(1)}}
+
+.letters{list-style:none;padding:0;display:flex;gap:12px;flex-wrap:wrap}
+.letter{background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));padding:16px 20px;border-radius:14px;border:1px solid rgba(255,255,255,0.04);cursor:pointer;box-shadow:0 10px 24px rgba(0,0,0,0.36);transition:transform .36s ease,box-shadow .36s ease;color:var(--muted);font-weight:600}
+.letter:hover{transform:translateY(-8px);box-shadow:0 28px 56px rgba(0,0,0,0.44)}
+
+/* increase touch target on small screens */
+@media (max-width:520px){
+	.btn{padding:14px 20px;font-size:1.02rem}
+	.flower{font-size:2.2rem;padding:18px}
+	.letter{padding:14px 18px;font-size:1rem}
+}
+
+/* Floating hearts decorative layer for letters page */
+.floating-hearts{position:absolute;right:18px;top:120px;display:flex;flex-direction:column;gap:10px;pointer-events:none}
+.fheart{font-size:18px;opacity:.95;color:rgba(255,107,154,0.95);transform-origin:center;animation:floaty 4.8s ease-in-out infinite;filter:drop-shadow(0 6px 14px rgba(0,0,0,0.45))}
+.fheart:nth-child(2){animation-delay:.45s;font-size:20px}
+.fheart:nth-child(3){animation-delay:.95s;font-size:16px}
+@keyframes floaty{0%{transform:translateY(0) scale(1);opacity:.95}50%{transform:translateY(-18px) scale(1.06);opacity:1}100%{transform:translateY(0) scale(1);opacity:.95}}
+
+/* Modal open animation */
+.modal .modal-card{transition:transform .36s ease,opacity .36s ease;transform:translateY(8px) scale(.99);opacity:0}
+.modal .modal-card.open{transform:translateY(0) scale(1);opacity:1}
+
+.modal{position:fixed;inset:0;background:rgba(11,8,10,0.48);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;z-index:10000}
+.modal[hidden]{display:none!important}
+.modal-card{background:var(--card);padding:18px;border-radius:12px;width:min(560px,92%);box-shadow:0 20px 40px rgba(0,0,0,0.18);position:relative}
+.modal-card{backdrop-filter: blur(6px);}
+#modal .modal-card{border-radius:20px}
+@keyframes popIn{0%{transform:translateY(12px) scale(.96);opacity:0}60%{transform:translateY(-8px) scale(1.02);opacity:1}100%{transform:translateY(0) scale(1);opacity:1}}
+#modal .modal-card.open{animation:popIn .44s cubic-bezier(.2,.9,.2,1)}
+.close{position:absolute;right:12px;top:12px;width:40px;height:40px;border-radius:999px;border:0;background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;box-shadow:0 8px 22px rgba(0,0,0,0.45);transition:transform .24s ease,box-shadow .24s ease,background .24s ease}
+.close:hover{transform:scale(1.06);box-shadow:0 14px 30px rgba(0,0,0,0.55);background:linear-gradient(180deg, rgba(255,107,154,0.18), rgba(255,107,154,0.06))}
+.close:focus{outline:2px solid rgba(255,107,154,0.22);outline-offset:4px}
+.modal-actions{margin-top:12px;text-align:right}
+.modal-actions button{padding:8px 14px;border-radius:12px;border:0;background:linear-gradient(180deg, rgba(255,107,154,0.14), rgba(255,107,154,0.06));color:#fff;cursor:pointer;font-weight:700;box-shadow:0 8px 22px rgba(0,0,0,0.36);transition:transform .22s ease,box-shadow .22s ease,opacity .22s}
+.modal-actions button:hover{transform:translateY(-4px);box-shadow:0 18px 36px rgba(0,0,0,0.48)}
+.modal-actions button:active{transform:translateY(-2px)}
+
+/* Specific smaller style for modal close actions to match dark theme */
+#copy,#flower-save{background:linear-gradient(180deg,var(--accent),#ff4f7f);padding:8px 12px;border-radius:10px}
+
+/* Confetti canvas covers viewport but doesn't block clicks */
+.confetti-canvas{position:fixed;inset:0;pointer-events:none;z-index:9999}
+
+/* Slightly different modal style for bouquet notes (dark theme) */
+#flower-modal{z-index:10001}
+#flower-modal .modal-card{
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.008)) !important;
+  border:1px solid rgba(255,107,154,0.045) !important;
+  box-shadow:0 26px 50px rgba(0,0,0,0.55) !important;
+  color:var(--muted) !important;
+  backdrop-filter: blur(6px) !important;
+}
+#flower-modal #flower-body{font-size:1.05rem;color:var(--muted);margin-top:8px;white-space:pre-wrap}
+
+/* Letters modal: use same dark/translucent treatment so all prompts match */
+#modal{z-index:10001}
+#modal .modal-card{
+	background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.008)) !important;
+	border:1px solid rgba(255,107,154,0.045) !important;
+	box-shadow:0 26px 50px rgba(0,0,0,0.55) !important;
+	color:var(--muted) !important;
+	backdrop-filter: blur(6px) !important;
+	border-radius:20px !important;
+}
+#modal #modal-body{font-size:1.05rem;color:var(--muted);margin-top:8px;white-space:pre-wrap}
+
+
+.hearts{display:flex;gap:18px;justify-content:center;margin-top:18px}
+.heart{font-size:3rem;animation:float 3s ease-in-out infinite}
+@keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-12px)}100%{transform:translateY(0)}}
+
+/* Flip card grid */
+.flip-cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:18px;max-width:720px;margin:28px auto;perspective:1000px}
+
+/* Flip card container */
+.flip-card{height:200px;cursor:pointer;background:none;border:none;padding:0;perspective:1200px}
+.flip-card-inner{position:relative;width:100%;height:100%;transition:transform .6s cubic-bezier(.68,-.55,.265,1.55);transform-style:preserve-3d}
+.flip-card.flipped .flip-card-inner{transform:rotateY(180deg)}
+
+/* Card faces */
+.flip-card-front,.flip-card-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden;-moz-backface-visibility:hidden;-ms-backface-visibility:hidden;display:flex;align-items:center;justify-content:center;border-radius:16px;font-weight:700;border:1px solid rgba(255,107,154,0.06);box-shadow:0 12px 30px rgba(0,0,0,0.45)}
+
+.flip-card-front{background:linear-gradient(180deg,rgba(255,107,154,0.08),rgba(255,107,154,0.03));color:var(--accent);font-size:3.2rem;-webkit-transform:translateZ(1px)}
+
+.flip-card-back{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.008));color:var(--muted);font-size:1rem;text-align:center;padding:16px;transform:rotateY(180deg);line-height:1.5;-webkit-transform:translateZ(1px) rotateY(180deg)}
+
+/* Hover effect */
+.flip-card:hover .flip-card-front,.flip-card:hover .flip-card-back{box-shadow:0 18px 40px rgba(0,0,0,0.55)}
+.flip-card:hover{transform:translateY(-6px)}
+
+/* Promise Board */
+.promise-section{max-width:720px;margin:0 auto;padding:28px 24px}
+.promise-section h1{font-size:2.2rem;margin-bottom:8px}
+.promise-input-box{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.008));border:1px solid rgba(255,107,154,0.08);border-radius:16px;padding:20px;margin:28px 0;backdrop-filter:blur(6px)}
+.promise-form{display:flex;flex-direction:column;gap:12px}
+#promiseText{width:100%;padding:14px;background:rgba(15,7,16,0.8);border:1px solid rgba(255,107,154,0.12);border-radius:12px;color:var(--muted);font-family:inherit;font-size:1rem;resize:vertical;min-height:80px;transition:border-color .36s ease}
+#promiseText:focus{outline:none;border-color:var(--accent);box-shadow:0 0 12px rgba(255,107,154,0.15)}
+#addPromiseBtn{align-self:flex-start;padding:12px 24px;font-weight:600}
+.char-count{font-size:.85rem;color:#5a3b44;text-align:right;margin-top:-8px}
+.promise-board{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin:24px 0}
+.promise-card{background:linear-gradient(180deg,rgba(255,107,154,0.06),rgba(255,107,154,0.02));border:1px solid rgba(255,107,154,0.12);border-radius:14px;padding:16px;position:relative;box-shadow:0 12px 30px rgba(0,0,0,0.36);transition:transform .36s ease,box-shadow .36s ease}
+.promise-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,0.45)}
+.promise-content{padding-right:28px}
+.promise-text{margin:0;color:var(--muted);line-height:1.5;font-size:1rem}
+.promise-date{display:block;margin-top:10px;color:#5a3b44;font-size:.8rem}
+.promise-delete{position:absolute;top:10px;right:10px;width:28px;height:28px;padding:0;background:rgba(255,107,154,0.1);border:1px solid rgba(255,107,154,0.3);border-radius:50%;color:var(--accent);font-size:1.2rem;cursor:pointer;transition:all .24s ease;display:flex;align-items:center;justify-content:center}
+.promise-delete:hover{background:rgba(255,107,154,0.25);transform:scale(1.1)}
+.empty-state{text-align:center;padding:60px 20px;color:#5a3b44;font-size:1.1rem;display:none}
+
+.foot{text-align:center;padding:18px;color:#6b4a55}
+
+@media (max-width:560px){.nav{padding:0 12px}.links a{margin-left:10px;font-size:.95rem}.hero{padding:22px}.promise-board{grid-template-columns:1fr}.promise-section{padding:18px}}

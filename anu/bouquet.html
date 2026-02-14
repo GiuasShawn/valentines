@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Bouquet — Anu</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="logo" href="index.html">Anu ♥</a>
+      <div class="links">
+        <a href="bouquet.html" aria-current="page">Bouquet</a>
+        <a href="letters.html">Letters</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="promise.html">Promises</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="page">
+    <h2>Your Bouquet</h2>
+    <p class="subtitle">Click a blossom to reveal a little message — each one is chosen for a memory.</p>
+
+    <div class="garden garden-large" id="garden">
+      <button class="flower big" data-msg="The day we laughed until sunset — I keep it close." onclick="handleFlowerClick(this)">🌹</button>
+      <button class="flower big" data-msg="You're my morning coffee, you warm everything up." onclick="handleFlowerClick(this)">🌻</button>
+      <button class="flower big" data-msg="For quiet nights, for long talks — thank you." onclick="handleFlowerClick(this)">🌷</button>
+      <button class="flower big" data-msg="I love how you find joy in small things." onclick="handleFlowerClick(this)">🌼</button>
+      <button class="flower big" data-msg="Every day with you feels like a small holiday." onclick="handleFlowerClick(this)">💐</button>
+    </div>
+
+    <div id="note" class="note large">Choose a flower</div>
+    <p class="small">Tip: click or tap a blossom.</p>
+
+    <div id="flower-modal" class="modal" hidden>
+      <div class="modal-card">
+        <button id="flower-close" class="close">×</button>
+        <h3 id="flower-title">A little note</h3>
+        <p id="flower-body" class="large"></p>
+        <div class="modal-actions">
+          <button id="flower-save">Close</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

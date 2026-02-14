@@ -11,8 +11,13 @@ html,body{height:100%}
 body{font-family:Inter,Segoe UI,Helvetica,Arial,sans-serif;background:linear-gradient(135deg,var(--bg1),var(--bg2));color:var(--muted);margin:0;min-height:100vh}
 .site-header{padding:18px 24px}
 .nav{display:flex;justify-content:space-between;align-items:center;max-width:980px;margin:0 auto}
+.nav-content{display:flex;justify-content:space-between;align-items:center;width:100%}
 .logo{font-weight:700;color:var(--accent);text-decoration:none}
 .links a{margin-left:14px;color:#5a3b44;text-decoration:none}
+.nav-links a,
+.nav-link{margin-left:14px;color:#5a3b44;text-decoration:none}
+.nav-links a[aria-current="page"],
+.nav-link[aria-current="page"]{color:var(--accent)}
 .hero{max-width:980px;margin:40px auto;padding:36px;text-align:center}
 h1{font-size:2rem;margin:0;color:var(--accent)}
 .lead{color:#6b4a55;margin-top:8px}

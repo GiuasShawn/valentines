@@ -49,12 +49,10 @@
             const fromQuery = params.get('api');
 
             if (fromQuery) {
-                localStorage.setItem('PROMISES_API_BASE', fromQuery);
                 return fromQuery;
             }
 
-            return localStorage.getItem('PROMISES_API_BASE')
-                || window.PROMISES_API_BASE
+            return window.PROMISES_API_BASE
                 || 'http://localhost:3000';
         }
 
